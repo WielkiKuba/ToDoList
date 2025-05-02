@@ -107,6 +107,17 @@ This document describes the endpoints available in the Task and User APIs.
     ```
 - **Response Body:** None (successful operation typically returns a 2xx status code). Returns a 404 Not Found if the task does not exist, or a 401 Unauthorized if the authenticated user is not the owner of the task.
 
+### 9. GET /api/task/delete/{id}
+
+- **Description:** Deletes a specific task. Only the owner of the task can delete it.
+- **HTTP Method:** `GET`
+- **Path Parameter:**
+    - `{id}`: The ID of the task to delete (Long).
+- **Requires X-API-KEY Header:** No
+- **Requires Authorization Header (Bearer Token):** Yes
+- **Request Body:** None
+- **Response Body:** None (successful operation typically returns a 2xx status code, e.g., 202 Accepted). Returns a 404 Not Found if the task does not exist, or a 403 Forbidden if the authenticated user is not the owner of the task.
+
 ## User API Endpoints
 
 ### 1. POST /api/user/modify/login
@@ -197,3 +208,15 @@ This document describes the endpoints available in the Task and User APIs.
     }
     ```
 - **Response Body:** A JSON string containing the JWT token. Returns a 404 Not Found if the login is not found, or a 400 Bad Request for an invalid password.
+
+### 8. GET /api/user/delete/{id}
+
+- **Description:** Deletes a specific user (Admin access).
+- **HTTP Method:** `GET`
+- **Path Parameter:**
+    - `{id}`: The ID of the user to delete (Long).
+- **Requires X-API-KEY Header:** Yes
+- **Requires Authorization Header (Bearer Token):** No
+- **Request Body:** None
+- **Response Body:** None (successful operation typically returns a 2xx status code, e.g., 202 Accepted). Returns a 404 Not Found if the user does not exist, or a 403 Forbidden if the API key is invalid.
+
