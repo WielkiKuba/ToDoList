@@ -83,4 +83,15 @@ public class UserRestController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid password");
         }
     }
+
+    @GetMapping("/delete/{id}")
+    public HttpStatus deleteUser(@RequestHeader("X-API-KEY") String apiKey,@PathVariable Long id){
+        if(apiKey.equals(securityVar.getApiKey())){
+            User user = userService.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+            userService.deleteUser(user);
+            return HttpStatus.ACCEPTED;
+        }else{
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Invalid API key");
+        }
+    }
 }

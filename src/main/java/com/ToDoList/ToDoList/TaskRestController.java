@@ -85,4 +85,15 @@ public class TaskRestController {
         }
     }
 
+    @GetMapping("/delete/{id}")
+    public HttpStatus deleteTask(@RequestHeader("Authorization") String token,@PathVariable Long id){
+        Task task = taskService.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Task not found"));
+        User user = userService.userFromToken(token);
+        if(task.getOwner().getId().equals(user.getId())){
+            taskService.deleteTask(task);
+            return HttpStatus.ACCEPTED;
+        }else{
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Access denied");
+        }
+    }
 }

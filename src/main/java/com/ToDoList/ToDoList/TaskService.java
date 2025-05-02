@@ -50,4 +50,7 @@ public class TaskService {
         }
         taskRepository.save(task);
     }
+    public void deleteTask(Task task){
+        taskRepository.delete(task);
+    }
 }
