@@ -118,6 +118,20 @@ This document describes the endpoints available in the Task and User APIs.
 - **Request Body:** None
 - **Response Body:** None (successful operation typically returns a 2xx status code, e.g., 202 Accepted). Returns a 404 Not Found if the task does not exist, or a 403 Forbidden if the authenticated user is not the owner of the task.
 
+### 10. POST /api/task/search/title
+
+- **Description:** Retrieves tasks belonging to the authenticated user by their title.
+- **HTTP Method:** `POST`
+- **Requires X-API-KEY Header:** No
+- **Requires Authorization Header (Bearer Token):** Yes
+- **Request Body:**
+    ```json
+    {
+      "title": "Task Title" (String, required)
+    }
+    ```
+- **Response Body:** A JSON array of `Task` objects matching the specified title and belonging to the authenticated user. Returns an empty array if no matching tasks are found.
+
 ## User API Endpoints
 
 ### 1. POST /api/user/modify/login
