@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/task")
 public class TaskRestController {
@@ -48,6 +49,13 @@ public class TaskRestController {
         }else{
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Invalid API key");
         }
+    }
+    
+    @PostMapping("/search/title")
+    public List<Task> getTaskByTitle(@RequestHeader("Authorization") String token,@RequestBody TaskBasicParam taskBasicParam){
+        User owner = userService.userFromToken(token);
+        String title = taskBasicParam.getTitle();
+        return taskService.findByUserTitle(owner,title);
     }
 
     @GetMapping("/search/user")

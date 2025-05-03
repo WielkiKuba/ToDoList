@@ -24,6 +24,8 @@ public class TaskService {
 
     public List<Task> findByUserDone(User user,Boolean done){return taskRepository.findByOwnerAndDone(user,done);}
 
+    public List<Task> findByUserTitle(User owner,String title){return taskRepository.findByOwnerAndTitle(owner,title);}
+
     public void addTask(Task task){taskRepository.save(task);}
 
     public void addTask(User owner,String title,String description){
